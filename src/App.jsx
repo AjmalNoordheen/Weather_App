@@ -3,7 +3,6 @@ import './App.css';
 import Input from './Components/Input';
 import TimeAndLocation from './Components/TimeAndLocation';
 import TemperatureAndDetails from './Components/TemperatureAndDetails';
-import Weather from './Components/Weather';
 import { API_BASE_URL, API_KEY, FORECAST_BASE_URL, ICON_URL, api } from './Constants/Services';
 import axios from 'axios';
 import Forecaste from './Components/Forecaste';
