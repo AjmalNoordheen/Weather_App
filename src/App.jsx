@@ -27,21 +27,6 @@ function App() {
         const response = await axios.get(`${API_BASE_URL}?q=${city}&appid=${API_KEY}`);
         setWeatherData(response.data);
         setError(null);
-
-        // Moved the second API call here, after setting weatherData
-        // if (response.data.coord?.lat) {
-        //   console.log(response.data.coord)
-        //   setTimeout(() => {
-        //     axios.get(`${FORECAST_BASE_URL}?lat=${response.data.coord?.lat}&lon=${response.data.coord?.lon}&appid=${API_KEY}`)
-        //     .then((res) => {
-        //       console.log(res.data.list[0].dt_txt > new Date(), 'ooooo');
-        //       console.log(res.data.list.filter((item)=>{
-        //         let k = new Date(item.dt_txt)
-        //             item.k > new Date()
-        //       })) 
-        //     });
-        //   }, 1000);
-        // }
         setLatLon({lat:response.data.coord?.lat,lon:response.data.coord?.lon})
         if (response.data.coord?.lat) {
             setTimeout(() => {
@@ -61,8 +46,8 @@ function App() {
   }, [city]);
 
   return (
-    <div className='w-screen flex justify-center items-center h-full md:py-3'>
-    <div className='w-6/12 py-3 px-2 bg-gradient-to-r from-cyan-500 to-blue-700 h-[95%]
+    <div className='w-screen flex justify-center  bg-gradient-to-bl from-blue-200 to-cyan-100  items-center h-full md:py-3 overflow-hidden'>
+    <div className='w-full md:w-11/12 lg:w-10/12 backdrop-blur-3xl xl:w-9/12 py-3 px-2 bg-gradient-to-r from-cyan-500 to-blue-700 h-[95%]
     shadow-md shadow-gray-400'>
       <Input city={city} setCity={setCity}/>
       <TimeAndLocation allData = {data} />

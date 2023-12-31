@@ -9,8 +9,8 @@ function TimeAndLocation({allData}) {
           {moment().format('dddd')}, {moment().format('ll') } | {moment().format('LT')}
         </p>
     </div>
-    <div className='flex items-center p-2 justify-center my-3'> 
-      <p className='text-white text-3xl font-medium'>
+    <div className='flex items-center  justify-center my-1'> 
+      <p className='text-white mt-3 text-3xl font-medium'>
       {allData.name}
       </p>
     </div>
