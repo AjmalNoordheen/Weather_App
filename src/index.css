@@ -5,3 +5,21 @@
 ::-webkit-scrollbar{
     width: 0;
 }
+
+.maindeg{
+    animation: fallDown ease-in-out  3s  ;
+    position: absolute ;
+}
+
+@keyframes fallDown {
+    0%{
+        top: -10%;
+    }
+    50%{
+        top: 9%;
+    };
+    100%{
+        top: 0;
+    }
+    
+}

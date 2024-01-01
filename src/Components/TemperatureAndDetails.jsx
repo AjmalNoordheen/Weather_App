@@ -36,7 +36,7 @@ function TemperatureAndDetails({ allData }) {
 
         {/* Current temperature */}
         <p className="text-5xl md:text-6xl my-auto">
-          {(main?.temp - 273.15).toFixed(0)}°
+          {(main?.temp - 273.15).toFixed(0)}<span>°</span> 
         </p>
 
         <div className="flex flex-col items-start justify-between space-y- gap-4 p-1">

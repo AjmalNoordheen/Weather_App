@@ -30,13 +30,13 @@ function Input({ setCity, city }) {
           ref={cityRef}
           placeholder="Search Location"              
           type="text"
-          className="text-lg rounded px-2 py-1 outline-none bg-slate-200 shadow-xl"
+          className="text-lg rounded px-2 py-1 mr-2 outline-none bg-slate-200 shadow-xl"
         />
-        <div className="flex items-center justify-center gap-x-2">
-          <p className="cursor-pointer" onClick={setInputCity}>
+        <div className="flex items-center  justify-center gap-x-2">
+          <p className="cursor-pointer maindeg" onClick={setInputCity}>
             <UilSearch
               size={25}
-              className="text-white hover:transition hover:scale-125"
+              className="text-white  hover:transition hover:scale-125"
             />
           </p>
         </div>
