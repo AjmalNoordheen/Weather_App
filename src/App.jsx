@@ -1,42 +1,46 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import Input from './Components/Input';
 import TimeAndLocation from './Components/TimeAndLocation';
 import TemperatureAndDetails from './Components/TemperatureAndDetails';
-import { API_BASE_URL, API_KEY, FORECAST_BASE_URL, ICON_URL, api } from './Constants/Services';
-import axios from 'axios';
 import Forecaste from './Components/Forecaste';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
+import { API_KEY, Base_Api, api } from './Constants/Services';
 
 function App() {
-  const [city, setCity] = useState('kerala');
-  const [weatherData, setWeatherData] = useState(null);
-  const [error, setError] = useState(null);
+  const [city, setCity] = useState('kannur');
+  const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
-  const [latlon,setLatLon] = useState({})
-// useEffect(()=>{
-//   axios.get(ICON_URL).then((res)=>{
-//     console.log(res.data)
-//   })
-// })
+  const [data, setData] = useState({});
+  const [latlon, setLatLon] = useState({});
+
   useEffect(() => {
-    
-    if (!city) return;
     const getWeather = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}?q=${city}&appid=${API_KEY}`);
-        setWeatherData(response.data);
-        setError(null);
-        setLatLon({lat:response.data.coord?.lat,lon:response.data.coord?.lon})
-        if (response.data.coord?.lat) {
-            setTimeout(() => {
-              axios.get(`${api}/weather?lat=${response.data.coord?.lat}&lon=${response.data.coord?.lon}&appid=${API_KEY}`)
-              .then((result) => {setData(result.data)})
-            }, 1000);
-          }
+        const response = await axios.get(`${Base_Api}?format=json&q=${city}`);
+        setLatLon({ lat: response.data[0].lat, lon: response.data[0].lon });
+        setName(response.data[0].name);
+
+        if (response.data[0].lat) {
+          setTimeout(() => {
+            axios
+              .get(`${api}/weather?lat=${response.data[0].lat}&lon=${response.data[0].lon}&appid=${API_KEY}`)
+              .then((result) => {
+                setData({
+                  weather: result.data.weather[0],
+                  main: result.data.main,
+                  wind: result.data.wind,
+                  sys: result.data.sys,
+                });
+                console.log(result.data);
+              });
+          }, 1000);
+        }
       } catch (error) {
-        setWeatherData(null);
-        setError('Error fetching weather data.');
+        console.log(error);
+        toast.error('Error fetching weather data for the location');
       } finally {
         setLoading(false);
       }
@@ -46,19 +50,18 @@ function App() {
   }, [city]);
 
   return (
-    <div className='w-screen flex justify-center  bg-gradient-to-bl from-blue-200 to-cyan-100  items-center h-full md:py-3 overflow-hidden'>
-    <div className='w-full md:w-11/12 lg:w-10/12 backdrop-blur-3xl xl:w-9/12 py-3 px-2 bg-gradient-to-r from-cyan-500 to-blue-700 h-[95%]
-    shadow-md shadow-gray-400'>
-      <Input city={city} setCity={setCity}/>
-      <TimeAndLocation allData = {data} />
-      <TemperatureAndDetails  allData = {data} />
-     <div className='w-full flex flex-col items-center my-10 space-y-5'>
-     <Forecaste forecaste={latlon} title={'Hourly forecast'} />
-      <Forecaste forecaste={latlon} title={'Daily forecast'} />
-     </div>
+    <div className='w-screen flex justify-center bg-gradient-to-tr from-blue-400 to-blue-700 items-center h-full md:py-3 overflow-hidden'>
+      <div className='w-full md:w-11/12 lg:w-10/12 xl:w-7/12 py-3 px-2 border bg-white bg-opacity-10  rounded-lg overflow-hidden min-h-screen h-[95%]'>
+        <Input city={city} setLatLon={setLatLon} setCity={setCity} />
+        <TimeAndLocation name={name} />
+        <TemperatureAndDetails allData={data} />
+        <div className='w-full flex flex-col items-center my-10 space-y-5'>
+          <Forecaste forecaste={latlon} title={'Hourly forecast'} />
+          <Forecaste forecaste={latlon} title={'Daily forecast'} />
+        </div>
+      </div>
+      <ToastContainer position='top-right' />
     </div>
-    </div>
-    
   );
 }
 
