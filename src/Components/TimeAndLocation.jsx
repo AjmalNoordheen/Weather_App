@@ -10,7 +10,7 @@ function TimeAndLocation({ name }) {
         </p>
       </div>
       <div className='flex items-center justify-center my-1'>
-        <p className='text-white mt-3 text-3xl font-medium'>{name}</p>
+        <div className={`${name =='' ? 'bg-white bg-opacity-40 animate-pulse w-1/2 h-8 rounded':'text-white mt-3 text-3xl font-medium'}`}>{name?name:''}</div>
       </div>
     </div>
   );

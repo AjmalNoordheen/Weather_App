@@ -1,21 +1,16 @@
 import React from "react";
 import { UilTemperature, UilWind, UilTear } from "@iconscout/react-unicons";
 import SunDetails from "./SunDetails";
+import LoaderSkelton from "./LoaderSkelton";
 
 function TemperatureAndDetails({ allData }) {
 
   const { weather, main, wind, sys } = allData;
 
-  // Check if weather data is available
-  if (weather) {
+  // skelton loading when data fetching
+  if (!weather) {
     return (
-      <div className="bg-[#f0f0f0] p-[1rem]  rounded">
-        <div className=" flex  flex-row items-center gap-y-3 md:items-start w-full ml-1 justify-around text-white py- sm:mt-3">
-          <div className="h-10 w-3/12 bg-[#b0b0b0] ml-4 animate-pulse"/>
-          <div className="h-10 w-3/12 bg-[#b0b0b0] ml-4 animate-pulse"/>
-          <div className="h-10 w-3/12 bg-[#b0b0b0] ml-4 animate-pulse"/>
-        </div>
-      </div>
+      <LoaderSkelton num={3}/>
     );
   }
 
@@ -23,19 +18,19 @@ function TemperatureAndDetails({ allData }) {
     <>
       {/* Displaying weather type */}
       <div className="flex items-center justify-center mr-1 text-xl text-cyan-300">
-        <h1>{weather.main || ""}</h1>
+        <h1>{weather?.main || ""}</h1>
       </div>
 
       <div className="flex flex-row items-center gap-y-3 md:items-start w-full ml-1 justify-around text-white py-7 sm:mt-3">
         {/* Weather icon */}
         <div className="flex flex-col mb-1 relative items-center">
           <img
-            src={`https://openweathermap.org/img/wn/${weather.icon}@2x.png`}
+            src={`https://openweathermap.org/img/wn/${weather?.icon}@2x.png`}
             className=""
             alt=""
           />
           <small className="font-light text-sm bottom-0 absolute">
-            {weather.description}
+            {weather?.description}
           </small>
         </div>
 

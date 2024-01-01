@@ -55,10 +55,8 @@ function App() {
         <Input city={city} setLatLon={setLatLon} setCity={setCity} />
         <TimeAndLocation name={name} />
         <TemperatureAndDetails allData={data} />
-        <div className='w-full flex flex-col items-center my-10 space-y-5'>
           <Forecaste forecaste={latlon} title={'Hourly forecast'} />
           <Forecaste forecaste={latlon} title={'Daily forecast'} />
-        </div>
       </div>
       <ToastContainer position='top-right' />
     </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { API_KEY, FORECAST_BASE_URL } from '../Constants/Services';
+import LoaderSkelton from "./LoaderSkelton";
 
 function Forecaste({ title, forecaste }) {
   const [data, setData] = useState([]);
@@ -24,7 +25,14 @@ function Forecaste({ title, forecaste }) {
     fetchData();
   }, [forecaste, title]);
 
+  if (!data.length) {
+    return (
+      <LoaderSkelton num={5} type={'forecast'}/>
+    );
+  }
+
   return (
+  <div className='w-full flex flex-col items-center my-10 space-y-5'> 
     <div className='p-3 w-11/12'>
       <div className='flex items-center justify-start'>
         <p className='text-white font-medium uppercase'>{title}</p>
@@ -44,6 +52,7 @@ function Forecaste({ title, forecaste }) {
         ))}
       </div>
     </div>
+  </div>
   );
 }
 
