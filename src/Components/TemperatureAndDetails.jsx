@@ -39,7 +39,6 @@ function TemperatureAndDetails({ allData }) {
           {(main?.temp - 273.15).toFixed(0)}°
         </p>
 
-        {/* Temperature details (Real feel, Humidity, Wind) */}
         <div className="flex flex-col items-start justify-between space-y- gap-4 p-1">
           {/* Real feel temperature */}
           {main && (

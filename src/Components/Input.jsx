@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 function Input({ setCity, city }) {
   const cityRef = useRef("");
 
+  // Searching function for the cities
   const setInputCity = () => {
     try {
       const inputCity = cityRef.current.value;
@@ -27,7 +28,7 @@ function Input({ setCity, city }) {
       <div className="flex flex-row w-3/4 md:w-2/4 mt-2 items-center justify-center rounded space-x-3">
         <input
           ref={cityRef}
-          placeholder="Search Location"
+          placeholder="Search Location"              
           type="text"
           className="text-lg rounded px-2 py-1 outline-none bg-slate-200 shadow-xl"
         />
