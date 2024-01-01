@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getForecast } from '../Constants/Services';
+import { getForecaste } from '../Constants/Services';
 import LoaderSkeleton from "./LoaderSkelton";
 
 function Forecast({ title, forecaste }) {
@@ -9,7 +9,7 @@ function Forecast({ title, forecaste }) {
     const fetchData = async () => {
       try {
         if (forecaste?.lat && forecaste?.lon) {
-          const filteredData = await getForecast(title, forecaste);
+          const filteredData = await getForecaste(title, forecaste);
           setData(filteredData);
         }
       } catch (error) {
@@ -35,7 +35,7 @@ function Forecast({ title, forecaste }) {
         <div className='flex items-center justify-between text-white'>
           {data && data.map((item) => (
             <div key={item.dt_txt} className='flex flex-col items-center justify-center'>
-              
+
               {/* Display time or day */}
               <p className='font-light text-sm'>
                 {title === "Daily forecast"
